@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: properties
     @IBOutlet weak var nameTextField: UITextField!
@@ -15,9 +15,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        // handle the text view's user input through delegate callbacks
+        nameTextField.delegate = self
     }
 
+    // MARK: UITextViewDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        // hide keyboard
+        textField.resignFirstResponder()
+        return true
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        mealNameLabel.text = textField.text
+    }
+    
     // MARK: actions
     @IBAction func setDefaultLabelText(_ sender: UIButton) {
         mealNameLabel.text = "Default text"
